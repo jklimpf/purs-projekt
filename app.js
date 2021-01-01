@@ -29,6 +29,7 @@ var poslanoSoba2 = false
 var poslanoSenzor1 = false
 var poslanoSenzor2 = false
 var poslanoDB = false
+var lastTimeMeasured
 
 // Definiranje baze podataka (mongoDB)
 const MongoClient = mongodb.MongoClient                     
@@ -159,6 +160,7 @@ client.on('message', function(topic, message) {
             plin: gasSensor2.toString(),
             date: new Date()
         })    
+        lastTimeMeasured = new Date()
     })
     console.log('Temperatura1 = '+temp1 + '   Plin1 = '+gasSensor + '   Temperatura2 = '+temp2 + '   Plin2 = '+gasSensor2)
 })
@@ -182,7 +184,7 @@ app.get('/soba1', (req, res) => {
         title: 'Soba 1',
         temp1: temp1,
         gasSensor: gasSensor,
-        
+        time: lastTimeMeasured    
     })
 })
 
@@ -191,7 +193,7 @@ app.get('/soba2', (req, res) => {
         title: 'Soba 2',
         temp2: temp2,
         gasSensor2: gasSensor2,
-        
+        time: lastTimeMeasured
     })
 })
 
