@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Soba 2</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/flame.png">
+    <h1>{{title}}</h1>
+
+<body>
+    <div class="main-content">
+        {{>header}}
+        <p>Temperatura: {{temp2}} °C</p>
+        <p>Koncentracija plina: {{gasSensor2}} </p>
+
+        <input type="button" value="Osvježi" onClick="location.href=location.href">
+
+    </div>
+
+    {{>footer}}
+</body>
+</head>
+
+</html>
