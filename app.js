@@ -54,12 +54,21 @@ const conditions = () =>{
      }
     else  poslanoSenzor2 = false
 
-    if(temp1 > 27 || gasSensor > 800) {
+    if(temp1 > 27 || gasSensor > 1000) {
         if(poslanoSoba1 === false){
             sendWarningMailSoba1()
 
             // Ako je alarm uključen (uvjet zadovoljen) spremi taj događaj u bazu podataka
             MongoClient.connect(connectionURL, { useNewUrlParser: true,  useUnifiedTopology: true }, (error, client) =>{
+                if(error) {
+                    if(poslanoDB === false){
+                        dbError()
+                        poslanoDB = true
+                    }
+                    return console.log('Unable to connect to database!')
+                 }
+                 else poslanoDB = false
+                 
                 const db = client.db(databaseName)
             db.collection('alarmi').insertOne({
                 soba: 'soba 1',
@@ -71,12 +80,21 @@ const conditions = () =>{
 
     else poslanoSoba1 = false
 
-    if(temp2 > 27 || gasSensor2 > 2000) {
+    if(temp2 > 27 || gasSensor2 > 1000) {
         if(poslanoSoba2 === false){
             sendWarningMailSoba2()
 
             // Ako je alarm uključen (uvjet zadovoljen) spremi taj događaj u bazu podataka
             MongoClient.connect(connectionURL, { useNewUrlParser: true,  useUnifiedTopology: true }, (error, client) =>{
+                if(error) {
+                    if(poslanoDB === false){
+                        dbError()
+                        poslanoDB = true
+                    }
+                    return console.log('Unable to connect to database!')
+                 }
+                 else poslanoDB = false
+
                 const db = client.db(databaseName)
             db.collection('alarmi').insertOne({
                 soba: 'soba 2',
