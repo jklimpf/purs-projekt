@@ -160,8 +160,8 @@ client.on('message', function(topic, message) {
             plin: gasSensor2.toString(),
             date: new Date()
         })    
-        lastTimeMeasured = new Date()
     })
+    lastTimeMeasured = new Date()
     console.log('Temperatura1 = '+temp1 + '   Plin1 = '+gasSensor + '   Temperatura2 = '+temp2 + '   Plin2 = '+gasSensor2)
 })
 
