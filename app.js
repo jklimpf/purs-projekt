@@ -2,7 +2,7 @@
 const mqtt = require('mqtt')
 const dotenv = require('dotenv')
 const mongodb = require('mongodb')
-const {sendWarningMailSoba1,sendWarningMailSoba2, sensor1Warning, sensor2Warning, dbError} = require ('./mail')
+const {sendWarningMailSoba1,sendWarningMailSoba2, sensor1Warning, sensor2Warning, gasSensorWarning, gasSensor2Warning, dbError} = require ('./mail')
 const express = require('express')
 const path = require('path')
 const hbs = require ('hbs')
@@ -28,8 +28,11 @@ var poslanoSoba1 = false
 var poslanoSoba2 = false
 var poslanoSenzor1 = false
 var poslanoSenzor2 = false
+var poslanoGasSensor = false
+var poslanoGasSensor2 = false
 var poslanoDB = false
 var lastTimeMeasured
+
 
 // Definiranje baze podataka (mongoDB)
 const MongoClient = mongodb.MongoClient                     
@@ -55,7 +58,23 @@ const conditions = () =>{
      }
     else  poslanoSenzor2 = false
 
-    if(temp1 > 27 || gasSensor > 1000) {
+    if(gasSensor < 10) {
+        if(poslanoGasSensor === false){
+            gasSensorWarning()
+             poslanoGasSensor = true
+         }
+     }
+    else poslanoGasSensor = false
+
+    if(gasSensor2 < 10) {
+        if(poslanoGasSensor2 === false){
+            gasSensor2Warning()
+             poslanoGasSensor2 = true
+         }
+     }
+    else poslanoGasSensor2 = false
+
+    if(temp1 > 27 || gasSensor > 350) {
         if(poslanoSoba1 === false){
             sendWarningMailSoba1()
 
@@ -81,7 +100,7 @@ const conditions = () =>{
 
     else poslanoSoba1 = false
 
-    if(temp2 > 27 || gasSensor2 > 1000) {
+    if(temp2 > 27 || gasSensor2 > 350) {
         if(poslanoSoba2 === false){
             sendWarningMailSoba2()
 
@@ -132,7 +151,7 @@ client.on('message', function(topic, message) {
          temp2 = parsedMsg.field2
          gasSensor = parsedMsg.field3
          gasSensor2 = parsedMsg.field4
-
+         
          //ispitati uvjete (temperatura i plin)
          conditions()   
     

@@ -60,6 +60,32 @@ const sensor2Warning = () => {
     })
 }
 
+const gasSensorWarning = () => {
+    sgMail.send({
+        to: 'josipjosip1411@gmail.com',
+        from: 'josipk1411@gmail.com',
+        subject: 'Neispravnost senzora plina 1',
+        text: 'Senzor plina 1 ne bilježi koncetraciju plinova!'
+    }).then(() => {
+        console.log('\nSenzor plina 1 ne bilježi koncetraciju plinova.\nPoslana poruka.\n')
+    }).catch((error) => {
+        console.log(error)
+    })
+}
+
+const gasSensor2Warning = () => {
+    sgMail.send({
+        to: 'josipjosip1411@gmail.com',
+        from: 'josipk1411@gmail.com',
+        subject: 'Neispravnost senzora plina 2',
+        text: 'Senzor plina 2 ne bilježi koncetraciju plinova!'
+    }).then(() => {
+        console.log('\nSenzor plina 2 ne bilježi koncetraciju plinova.\nPoslana poruka.\n')
+    }).catch((error) => {
+        console.log(error)
+    })
+}
+
 const dbError = () => {
     sgMail.send({
         to: 'josipjosip1411@gmail.com',
@@ -78,6 +104,8 @@ module.exports = {
     sendWarningMailSoba2: sendWarningMailSoba2,
     sensor1Warning: sensor1Warning,
     sensor2Warning: sensor2Warning,
+    gasSensorWarning: gasSensorWarning,
+    gasSensor2Warning: gasSensor2Warning,
     dbError: dbError
 }
 
