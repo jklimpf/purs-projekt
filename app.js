@@ -74,7 +74,7 @@ const conditions = () =>{
      }
     else poslanoGasSensor2 = false
 
-    if(temp1 > 27 || gasSensor > 350) {
+    if(temp1 > 35 || gasSensor > 400) {
         if(poslanoSoba1 === false){
             sendWarningMailSoba1()
 
@@ -100,7 +100,7 @@ const conditions = () =>{
 
     else poslanoSoba1 = false
 
-    if(temp2 > 27 || gasSensor2 > 350) {
+    if(temp2 > 35 || gasSensor2 > 400) {
         if(poslanoSoba2 === false){
             sendWarningMailSoba2()
 
